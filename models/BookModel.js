@@ -20,7 +20,7 @@ const bookSchema = new BookSchema(
     },
     image: {
       type: String,
-      required: true,
+      required: false,
     },
     language: {
       type: String,

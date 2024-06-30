@@ -24,8 +24,10 @@ const createbook = async (req, res) => {
       category: req.body.category,
     });
     books.save();
+    console.log(books);
     res.status(200).json(books);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };

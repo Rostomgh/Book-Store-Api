@@ -1,12 +1,13 @@
 const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
-dotenv.config();
-Port=3000;
-//path Route
+const connectDB = require("./config/Db"); // Ensure the path is correct
 
+dotenv.config();
+const app = express();
+const Port =  3000; // Correct variable declaration
+
+// Path Route
 const UserRoute = require("./Router/UserRoute");
 const BookRoute = require("./Router/BookRoute");
 
@@ -20,17 +21,18 @@ app.use(
 
 app.use("/api/v1/user", UserRoute);
 app.use("/api/v1/book", BookRoute);
-MONGOO_URI=process.env.MONGOO_URI
-const start = () => {
-  connectDB(MONGOO_URI)
-      .then(() => {
-          app.listen(port, () => {
-              console.log(`Server is listening to the port ${Port}`)
-          })
-      })
-      .catch((err) => {
-          console.log(err)
-      })
-}
 
-start()
+const MONGOO_URI = process.env.MONGOO_URI || 'mongodb+srv://aristoo:aristoo@cluster0.n0vbpko.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Correct variable declaration
+
+const start = async () => {
+  try {
+    await connectDB(MONGOO_URI); // Ensure the connectDB function is called with the correct URI
+    app.listen(Port, () => {
+      console.log(`http://localhost:${Port}`);
+    });
+  } catch (error) {
+    console.error("Error starting the server:", error);
+  }
+};
+
+start();
