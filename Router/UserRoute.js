@@ -1,8 +1,9 @@
 const express = require("express");
 
 const UserRoute=  express.Router();
-const UserModel = require("../models/UserModel");
+const {signup,login}=require('../controllers/UserController')
 
-UserRoute.post("/signup",)
+UserRoute.post("/signup",signup)
+UserRoute.post("/login",login)
 
 module.exports = UserRoute
